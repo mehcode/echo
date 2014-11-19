@@ -15,4 +15,12 @@ process.on 'uncaughtException', (error={}) ->
 # unless it's after 'ready', or else mysterious bad things will happen
 # to you.
 app.on 'ready', ->
+  # Setup the "atom://" protocol for ease of use in self-reference.
+  protocol = require 'protocol'
+  protocol.registerProtocol 'atom', (request) ->
+    url = request.url.substr 7
+    target = path.normalize path.resolve(__dirname, '..', '..', url)
+    return new protocol.RequestFileJob target
+
+  # Start the global application
   global.application = new Application({})
