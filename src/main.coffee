@@ -46,8 +46,8 @@ SongList = React.createClass
       div {className: "header"},
         (div (_.extend {className: "name"}, opts), "Name"),
         (div (_.extend {className: "duration"}, opts), "Duration"),
-        (div (_.extend {className: "artist"}, opts), "Artist"),
-        (div (_.extend {className: "album"}, opts), "Album"),
+        (div (_.extend {className: "artist"}, opts), "People"),
+        (div (_.extend {className: "album"}, opts), "Release"),
 
       div {className: "data"}, songNodes
 
