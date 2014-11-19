@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var path = require("path");
-var exec = require("child_process").exec;
+var spawn = require('child_process').spawn;
 var pkgInfo = require(path.resolve(__dirname, '..', 'package.json'));
 
 var target = path.join(process.env.TMPDIR || process.env.TEMP || '/tmp', pkgInfo.name + "-build");
@@ -22,6 +22,20 @@ if (process.platform === 'win32') {
   cmd = path.join(target, pkgInfo.productName, pkgInfo.productName + '.exe');
 }
 
+// Spawn the application and hook-up stdout and stderr to see log messages
 var toRun = cmd + " " + theArgs.join(" ");
-console.log("Running: " + toRun);
-exec(toRun);
+console.log("running: " + toRun);
+
+var child = spawn(cmd, theArgs);
+
+child.stdout.on("data", function (data) {
+  process.stdout.write(data);
+});
+
+child.stderr.on("data", function (data) {
+  process.stderr.write(data);
+});
+
+child.on("exit", function(code) {
+  console.log("exited with code: " + code);
+});
