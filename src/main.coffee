@@ -11,6 +11,9 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 
+moment = require 'moment'
+require 'moment-duration-format'
+
 # TODO: Use 'glob' on the FS to get data
 songs = [
 ]
@@ -22,12 +25,19 @@ Song = React.createClass
     else
       @props.filename
 
+    seconds = @props.duration
+    if seconds < 60
+      duration = moment.duration(seconds, "seconds").format(
+        "m:ss", {trim: false})
+    else
+      duration = moment.duration(seconds, "seconds").format("h:mm:ss")
+
     div {className: "song"},
       (div {className: "name-container"},
         (div {className: "name"}, name)),
 
       (div {className: "duration-container"},
-        (div {className: "duration"}, @props.duration)),
+        (div {className: "duration"}, duration)),
 
       (div {className: "artist-container"},
         (div {className: "artist"}, @props.artist)),
@@ -67,7 +77,7 @@ SongList = React.createClass
           (div {className: "name"}, "Name")),
 
         (div (_.extend {className: "duration-container"}, opts),
-          (div {className: "duration"}, "Duration")),
+          (div {className: "duration fa fa-clock-o"})),
 
         (div (_.extend {className: "artist-container"}, opts),
           (div {className: "artist"}, "People")),

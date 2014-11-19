@@ -19,7 +19,8 @@ app.on 'ready', ->
   # Setup the "atom://" protocol for ease of use in self-reference.
   protocol = require 'protocol'
   protocol.registerProtocol 'atom', (request) ->
-    url = request.url.substr 7
+    url = request.url.split("?")[0]
+    url = url.substr 7
     target = path.normalize path.resolve(__dirname, '..', '..', url)
     return new protocol.RequestFileJob target
 

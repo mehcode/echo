@@ -1,5 +1,8 @@
 @import '../node_modules/sass-bourbon/bourbon/bourbon';
 
+$fa-font-path: 'atom://node_modules/font-awesome/fonts';
+@import '../node_modules/font-awesome/scss/font-awesome';
+
 // -----------------------------------------------------------------------------
 
 $echo-orange: #fd8500;
