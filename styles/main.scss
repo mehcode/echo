@@ -2,6 +2,10 @@
 
 // -----------------------------------------------------------------------------
 
+$echo-orange: #fd8500;
+
+// -----------------------------------------------------------------------------
+
 body {
   margin: 0;
 }
@@ -18,6 +22,25 @@ body,
 body * {
   cursor: default;
   @include user-select(none);
+}
+
+#nprogress {
+  height: 6px;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 40px;
+  width: 100%;
+
+  .bar {
+    background: $echo-orange;
+    position: initial;
+  }
+
+  .peg {
+    box-shadow: 0 0 10px $echo-orange, 0 0 5px $echo-orange;
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -98,4 +121,28 @@ body * {
       background-color: #f8f8f8;
     }
   }
+}
+
+.progress-bar-container {
+  // height: 3px;
+  // pointer-events: none;
+  // position: relative;
+  //
+  // .blur {
+  //   box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+  //   display: block;
+  //   height: 100%;
+  //   opacity: 1;
+  //   position: absolute;
+  //   right: 0;
+  //   width: 100px;
+  //
+  //   @include transform(rotate(3deg) translate(0, -4px));
+  // }
+  //
+  // .progress-bar {
+  //   background: $echo-orange;
+  //   height: 3px;
+  //   z-index: 1031;
+  // }
 }

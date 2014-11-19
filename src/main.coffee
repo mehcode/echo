@@ -2,6 +2,7 @@ $ = require 'jquery'
 _ = require 'underscore-plus'
 React = require 'react-atom-fork'
 remote = require 'remote'
+NProgress = require 'nprogress'
 {div, h1, h2} = require 'reactionary-atom-fork'
 
 glob = require 'glob'
@@ -54,7 +55,8 @@ SongList = React.createClass
 SongBox = React.createClass
   getInitialState: ->
     {
-      data: []
+      data: [],
+      progress: 0.00
     }
 
   componentDidMount: ->
@@ -67,7 +69,14 @@ SongBox = React.createClass
       files = _.filter files, (file) ->
         file.slice(-1) isnt "/"
 
-      async.eachLimit files, 10, ((file, cb) ->
+      updateProgress = _.throttle (->
+        # Update progress
+        progress = songs.length / total
+        NProgress.set(progress)
+      ), 60, true
+
+      total = files.length
+      async.eachLimit files, 1, ((file, cb) ->
         # Create the metadata parser
         stream = fs.createReadStream file
         parser = mm stream, {duration: true}
@@ -76,16 +85,34 @@ SongBox = React.createClass
           item = _.extend {filename: file}, result
           songs.push item
 
+          # Update progress
+          updateProgress()
+
         parser.on 'done', (err) ->
+          if err
+            # Probably not really a music file ..
+            # TODO: Log the error somewhere
+            total -= 1
+            updateProgress()
+
           stream.destroy()
           cb()
 
       ), (err) =>
         # All files were processed successfully
+        NProgress.done()
         this.setState {data: songs}
 
   render: ->
-    SongList {data: @state.data}
+    div {className: "container"},
+      (SongList {data: @state.data})
 
 document.addEventListener 'DOMContentLoaded', ->
+  # Configure NProgress
+  NProgress.configure {
+    trickle: false,
+    speed: 300,
+    showSpinner: false
+  }
+
   React.renderComponent SongBox(), (document.getElementById "content")
