@@ -17,9 +17,14 @@ songs = [
 
 Song = React.createClass
   render: ->
+    name = if @props.title
+      @props.title
+    else
+      @props.filename
+
     div {className: "song"},
       (div {className: "name-container"},
-        (div {className: "name"}, @props.title)),
+        (div {className: "name"}, name)),
 
       (div {className: "duration-container"},
         (div {className: "duration"}, @props.duration)),
@@ -45,6 +50,12 @@ SongList = React.createClass
       onMouseEnter: this.onMouseEnter,
       onMouseLeave: this.onMouseLeave
     }
+
+    key = @props.sortKey
+    @props.data.sort (a, b) ->
+      return +1 if a[key] > b[key]
+      return -1 if a[key] < b[key]
+      return 0
 
     songNodes = @props.data.map (song) ->
       # TODO: Figure out a better unique key here
@@ -119,7 +130,7 @@ SongBox = React.createClass
 
   render: ->
     div {className: "container"},
-      (SongList {data: @state.data})
+      (SongList {data: @state.data, sortKey: "title"})
 
 document.addEventListener 'DOMContentLoaded', ->
   # Configure NProgress
