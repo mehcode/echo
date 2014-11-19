@@ -1,0 +1,101 @@
+@import '../node_modules/sass-bourbon/bourbon/bourbon';
+
+// -----------------------------------------------------------------------------
+
+body {
+  margin: 0;
+}
+
+// Setup default font-family and font-size
+body,
+input {
+  font-family: "Cantarell", sans-serif;
+  font-size: 16px;
+}
+
+// Ensure nothing is selectable by default
+body,
+body * {
+  cursor: default;
+  @include user-select(none);
+}
+
+// -----------------------------------------------------------------------------
+
+.song-list {
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: #333;
+  display: table;
+  font-size: 14px;
+  table-layout: fixed;
+  width: 100%;
+
+  .header,
+  .song {
+    display: table-row;
+    height: 40px;
+
+    > * {
+      display: table-cell;
+      height: inherit;
+      overflow: hidden;
+      padding-left: 14px;
+      padding-right: 14px;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      white-space: nowrap;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+
+    .album,
+    .artist {
+      width: 32%;
+    }
+
+    .name {
+      width: 42%;
+    }
+
+    .duration {
+      text-align: right;
+      width: 70px;
+    }
+  }
+
+  .data {
+    display: table-row-group;
+    top: 41px;
+  }
+
+  .header {
+    border-bottom: 1px solid #d1d1d1;
+    font-size: 12px;
+    font-weight: bold;
+    // left: 0;
+    // position: fixed;
+    // right: 0;
+    text-transform: uppercase;
+    // top: 0;/
+
+    > * {
+      cursor: pointer;
+    }
+
+    // BUG: `*:hover` doesn't work
+    > div:hover,
+    > .hover {
+      background-color: #e8e8e8;
+    }
+  }
+
+  .song {
+    border-bottom: 1px solid #e8e8e8;
+
+    &:hover,
+    .hover {
+      background-color: #f8f8f8;
+    }
+  }
+}

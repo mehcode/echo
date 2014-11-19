@@ -1,6 +1,7 @@
 app = require 'app'
 url = require 'url'
 path = require 'path'
+# process = require 'process'
 BrowserWindow = require 'browser-window'
 Application = require './application'
 
