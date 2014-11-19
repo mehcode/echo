@@ -18,10 +18,17 @@ songs = [
 Song = React.createClass
   render: ->
     div {className: "song"},
-      (div {className: "name"}, @props.title),
-      (div {className: "duration"}, @props.duration),
-      (div {className: "artist"}, @props.artist),
-      (div {className: "album"}, @props.album),
+      (div {className: "name-container"},
+        (div {className: "name"}, @props.title)),
+
+      (div {className: "duration-container"},
+        (div {className: "duration"}, @props.duration)),
+
+      (div {className: "artist-container"},
+        (div {className: "artist"}, @props.artist)),
+
+      (div {className: "album-container"},
+        (div {className: "album"}, @props.album)),
 
 SongList = React.createClass
   onMouseEnter: (event) ->
@@ -45,10 +52,17 @@ SongList = React.createClass
 
     div {className: "song-list"},
       div {className: "header"},
-        (div (_.extend {className: "name"}, opts), "Name"),
-        (div (_.extend {className: "duration"}, opts), "Duration"),
-        (div (_.extend {className: "artist"}, opts), "People"),
-        (div (_.extend {className: "album"}, opts), "Release"),
+        (div (_.extend {className: "name-container"}, opts),
+          (div {className: "name"}, "Name")),
+
+        (div (_.extend {className: "duration-container"}, opts),
+          (div {className: "duration"}, "Duration")),
+
+        (div (_.extend {className: "artist-container"}, opts),
+          (div {className: "artist"}, "People")),
+
+        (div (_.extend {className: "album-container"}, opts),
+          (div {className: "album"}, "Release")),
 
       div {className: "data"}, songNodes
 

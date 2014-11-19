@@ -46,61 +46,79 @@ body * {
 // -----------------------------------------------------------------------------
 
 .song-list {
-  border-collapse: collapse;
-  border-spacing: 0;
   color: #333;
-  display: table;
   font-size: 14px;
-  table-layout: fixed;
-  width: 100%;
+  padding-top: 41px;
+  @include display(flex);
+  @include flex-direction(column);
 
   .header,
   .song {
-    display: table-row;
+    background: #fff;
     height: 40px;
+    @include display(flex);
+    @include flex(0 0 40px);
 
     > * {
-      display: table-cell;
+      // display: table-cell;
       height: inherit;
+      @include flex(0 0 40px);
+      min-width: 0;
       overflow: hidden;
       padding-left: 14px;
       padding-right: 14px;
       text-overflow: ellipsis;
-      vertical-align: middle;
       white-space: nowrap;
       word-break: break-all;
       word-wrap: break-word;
+      @include display(flex);
+      @include justify-content(center);
+      @include align-items(center);
+
+      > * {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: break-all;
+        word-wrap: break-word;
+      }
     }
 
-    .album,
-    .artist {
+    .album-container,
+    .artist-container {
       width: 32%;
+      @include flex(1 1 32%);
+      @include justify-content(flex-start);
     }
 
-    .name {
+    .name-container {
       width: 42%;
+      @include flex(1 1 42%);
+      @include justify-content(flex-start);
     }
 
-    .duration {
-      text-align: right;
-      width: 70px;
+    .duration-container {
+      width: 100px;
+      @include flex(0 1 100px);
+      @include justify-content(flex-end);
     }
   }
 
   .data {
-    display: table-row-group;
-    top: 41px;
+    @include display(flex);
+    @include flex-direction(column);
   }
 
   .header {
     border-bottom: 1px solid #d1d1d1;
     font-size: 12px;
     font-weight: bold;
-    // left: 0;
-    // position: fixed;
-    // right: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
     text-transform: uppercase;
-    // top: 0;/
+    top: 0;
 
     > * {
       cursor: pointer;
@@ -121,28 +139,4 @@ body * {
       background-color: #f8f8f8;
     }
   }
-}
-
-.progress-bar-container {
-  // height: 3px;
-  // pointer-events: none;
-  // position: relative;
-  //
-  // .blur {
-  //   box-shadow: 0 0 10px #29d, 0 0 5px #29d;
-  //   display: block;
-  //   height: 100%;
-  //   opacity: 1;
-  //   position: absolute;
-  //   right: 0;
-  //   width: 100px;
-  //
-  //   @include transform(rotate(3deg) translate(0, -4px));
-  // }
-  //
-  // .progress-bar {
-  //   background: $echo-orange;
-  //   height: 3px;
-  //   z-index: 1031;
-  // }
 }
