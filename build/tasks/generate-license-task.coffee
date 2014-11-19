@@ -18,7 +18,8 @@ module.exports = (grunt) ->
       licenseText = getLicenseText(dependencyLicenses)
       if mode is 'save'
         pkgName = grunt.config.get('name')
-        targetPath = path.join(grunt.config.get("#{pkgName}.appDir"), 'LICENSE.md')
+        # FIXME: Use a glob to get the license
+        targetPath = path.join(grunt.config.get("#{pkgName}.appDir"), 'LICENSE')
         fs.writeFileSync(targetPath, licenseText)
       else
         console.log licenseText
@@ -26,8 +27,9 @@ module.exports = (grunt) ->
 
 getLicenseText = (dependencyLicenses) ->
   {keys} = require 'underscore-plus'
+  # FIXME: Use a glob to get the license
   text = """
-    #{fs.readFileSync('LICENSE.md', 'utf8')}
+    #{fs.readFileSync('LICENSE', 'utf8')}
 
     This application bundles the following third-party packages in accordance
     with the following licenses:\n\n
