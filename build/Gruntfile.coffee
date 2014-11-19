@@ -22,6 +22,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-csslint')
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-contrib-less')
+  grunt.loadNpmTasks('grunt-contrib-sass')
   grunt.loadNpmTasks('grunt-shell')
   grunt.loadNpmTasks('grunt-download-atom-shell')
   grunt.loadNpmTasks('grunt-atom-shell-installer')
@@ -121,6 +122,12 @@ module.exports = (grunt) ->
 
     cson: csonConfig
 
+    sass:
+      # options:
+      compile:
+        dest: appDir + "/static/main.css"
+        src: "styles/main.scss"
+
     coffeelint:
       options:
         configFile: 'coffeelint.json'
@@ -189,7 +196,7 @@ module.exports = (grunt) ->
 
   grunt.initConfig(opts)
 
-  grunt.registerTask('compile', ['coffee', 'cson'])
+  grunt.registerTask('compile', ['coffee', 'cson', 'sass'])
   grunt.registerTask('lint', ['coffeelint', 'csslint', 'lesslint'])
   grunt.registerTask('test', ['shell:kill-app', 'run-specs'])
 
